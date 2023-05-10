@@ -87,11 +87,12 @@ void callback(char *topic, byte *payload, unsigned int length){
   Serial.print("The message is: ");
   for(int i=0;i<length; i++){
     Serial.print((char) payload[i]);
-    if (mensajeOn[0]==payload[i]){
+    sprintf(mensaje, "%c",payload[i])
+    if (mensajeOn[0]==mensaje[i]){
         Serial.print("Encender Led");
         digitalWrite(PinLed, HIGH);
     }
-    else if(mensajeOff[0]==payload[i]){
+    else if(mensajeOff[0]==mensaje[i]]){
         Serial.print("Apagar Led");
         digitalWrite(PinLed, LOW);
     }
