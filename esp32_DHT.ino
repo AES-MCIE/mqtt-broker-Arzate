@@ -3,7 +3,7 @@
 #include <PubSubClient.h>
 #include <DHT.h>
 //Pines
-#define PinSensor 35   // Pin digital al que se conecta el sensor
+#define PinSensor 4   // Pin digital al que se conecta el sensor
 #define Tipo DHT11    // Tipo de sensor
 #define PinLed 2
 DHT dht(PinSensor, Tipo);
@@ -18,8 +18,8 @@ WiFiClient espClient;
 // mqtt brocker:
 const char *mqttBrocker = "192.168.1.205";
 const char *topic = "esp32/output";   
-const char *topic2 = "esp32/temperature";   
-const char *topic3 = "esp32/humidity";   
+const char *topic2 = "esp32/humidity";
+const char *topic3 = "esp32/temperature";   
 const char *mqttUsername = "";  //Dejar en blanco para BB
 const char *mqttPassword = "";  //Dejar en blanco para BB
 const int mqttPort = 1883;
@@ -30,11 +30,13 @@ char hum[10];
 char tem[10];
 float humedad;
 float temperatura;
-char mensajeOn ="n";
-char mensajeOff ="f";
+char mensajeOn[5] ="on";
+char mensajeOff[5] ="off";
+char mensaje[5];
+int cont = 0;
 
 void setup(){
-  pinMode(PinLed , OUTPUT)
+  pinMode(PinLed , OUTPUT);
   Serial.begin(115200);
   dht.begin();
   WiFi.begin(ssid, password);
@@ -63,7 +65,6 @@ void setup(){
   //once connected publish and suscribe:
   client.publish(topic, "Hi EMQX broker I'm a ESP32 :)");   //Valor ADC
   client.subscribe(topic);
-
 }
 
 void loop(){
@@ -85,16 +86,27 @@ void callback(char *topic, byte *payload, unsigned int length){
   Serial.print("Message recived in topic: ");
   Serial.println(topic);
   Serial.print("The message is: ");
+  
   for(int i=0;i<length; i++){
     Serial.print((char) payload[i]);
-    sprintf(mensaje, "%c",payload[i])
-    if (mensajeOn[0]==mensaje[i]){
+    sprintf(mensaje, "%c",payload[i]);
+    if (mensajeOn[i]==mensaje[0]){
+      cont+=1;
+      if(cont==2){
         Serial.print("Encender Led");
         digitalWrite(PinLed, HIGH);
+        Serial.print(cont);
+        cont=0;
+      }
     }
-    else if(mensajeOff[0]==mensaje[i]]){
+    else if(mensajeOff[i]==mensaje[0]){
+      cont+=1;
+      if(cont==3){
         Serial.print("Apagar Led");
         digitalWrite(PinLed, LOW);
+        Serial.print(cont);
+        cont=0;
+      }
     }
   }
   Serial.println();
