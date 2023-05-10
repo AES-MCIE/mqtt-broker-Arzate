@@ -3,9 +3,9 @@
 #include <PubSubClient.h>
 #include <DHT.h>
 //Pines
-#define PinSensor 4   // Pin digital al que se conecta el sensor
+#define PinSensor 2   // Pin digital al que se conecta el sensor
 #define Tipo DHT11    // Tipo de sensor
-#define PinLed 2
+#define PinLed 4
 DHT dht(PinSensor, Tipo);
 
 //Configuración WiFi 

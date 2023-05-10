@@ -168,7 +168,7 @@ Para ello se ingresa al menú `Sketch->Include Library->Manage Libraries` y se b
 
 # Conexión de cliente ESP32 
 ## Código de programación 
-En el código se incluyen las librerías antes mencionadas a excepción de `Adafruit Unified Sensor` y se definen el `GPIO 4` para conectar la salida del sensor, el tipo de sensor y el `GPIO 2` para la salida de la alarma que se representara con un led. 
+En el código se incluyen las librerías antes mencionadas a excepción de `Adafruit Unified Sensor` y se definen el `GPIO 2` para conectar la salida del sensor, el tipo de sensor y el `GPIO 4` para la salida de la alarma que se representara con un led. 
 
 Después en `*ssid` y `*password` se especifican el nombre y contraseña de la red inalámbrica a la que se va a conectar la placa
 
@@ -183,9 +183,9 @@ En la línea 19 empieza la configuración del servidor MQTT:
 #include <PubSubClient.h>
 #include <DHT.h>
 //Pines
-#define PinSensor 4   // Pin digital al que se conecta el sensor
+#define PinSensor 2   // Pin digital al que se conecta el sensor
 #define Tipo DHT11    // Tipo de sensor
-#define PinLed 2
+#define PinLed 4
 DHT dht(PinSensor, Tipo);
 
 //Configuración WiFi 
@@ -317,6 +317,10 @@ En caso de que no aparezca es posible que no se tenga instalado el driver necesa
 ![](img/Universal%20Driver%20esp32.png)
 
 ## Conexión del circuito 
+
+En la figura anterior se muestra la conexion fisica del sensor DHT11 con el ESP32, en la cual se requieren una resistencia de 5.1K Ohms para conectar al sensor y una de 330 Ohms para el led. El led se conecta al GPIO 4 y la salida del sensor al GPIO 2.
+
+![](img/Esquematico_C.jpeg)
 
 ## Resultados 
 A continuación se muestran imágenes de las mediciones de los datos del sensor en las diferentes plataformas que se abordaron en este documento. 
