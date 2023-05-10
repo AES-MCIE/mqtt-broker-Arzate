@@ -3,7 +3,7 @@ El objetivo principal de la presente tarea es desarrollar y probar un *MQTT Brok
 
 Por lo tanto, se deberá ejecutar el servicio Mosquitto en la BeagleBone para crear el Broker. Luego, un cliente ESP32 debe publicar los datos de temperatura registrados por un sensor. Además, la aplicación Node-RED debe usarse como cliente para mostrar los datos como una interfaz gráfica de usuario del cliente ESP32.
 
-Finalmente, se implementará un indicador básico de **Alarma** que se encienda cuando la temperatura excede un valor límite o permanezca APAGADO si el valor es menor.
+Finalmente, se implementará un indicador básico de **Alarma** que se encienda cuando la temperatura excede un valor límite o permanezca apagado si el valor es menor.
 
 ![](https://i0.wp.com/randomnerdtutorials.com/wp-content/uploads/2018/05/ESP32-MQTT-bme280.png?w=800&quality=100&strip=all&ssl=1)
 
